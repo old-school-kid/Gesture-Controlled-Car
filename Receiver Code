@@ -1,0 +1,88 @@
+#include <SoftwareSerial.h>
+SoftwareSerial BTSerial(0, 1);
+#include <AFMotor.h>
+
+AF_DCMotor motor1(1);
+AF_DCMotor motor2(2);
+AF_DCMotor motor3(3);
+AF_DCMotor motor4(4);
+
+char tiltDirection;
+
+void setup() {
+
+  
+  motor1.setSpeed(255);
+  motor2.setSpeed(255);
+  motor3.setSpeed(255);
+  motor4.setSpeed(255);
+  Stop();
+  Serial.begin(9600);      // Serial communication is activated at 38400 baud/s.
+  BTSerial.begin(38400);    // HC-05 default speed in AT command more
+}
+
+void loop() {
+  if (BTSerial.available()) {   // Witing for data incoming from the other XBee module
+    tiltDirection = BTSerial.read();
+    if(tiltDirection == 'F'){
+      Serial.println("Backword");
+      backward();
+    }else if(tiltDirection == 'B'){
+      Serial.println("Forward");
+      forward();
+    }else if(tiltDirection == 'R'){
+      Serial.println("Left");
+      left();
+    }else if(tiltDirection == 'L'){
+      Serial.println("Right");
+      right();
+    }else {
+      Serial.println("Stop");
+      Stop();
+    }
+  }
+
+
+
+}
+void forward()
+{
+  Serial.println("Forward");
+  motor1.run(FORWARD);
+  motor2.run(FORWARD);
+  motor3.run(FORWARD);
+  motor4.run(FORWARD);
+}
+
+void backward()
+{
+  Serial.println("Backward");
+  motor1.run(BACKWARD);
+  motor2.run(BACKWARD);
+  motor3.run(BACKWARD);
+  motor4.run(BACKWARD);
+}
+void right()
+{
+  Serial.println("Right");
+  motor1.run(FORWARD);
+  motor2.run(FORWARD);
+  motor3.run(BACKWARD);
+  motor4.run(BACKWARD);
+}
+void left()
+{
+  Serial.println("Left");
+  motor1.run(BACKWARD);
+  motor2.run(BACKWARD);
+  motor3.run(FORWARD);
+  motor4.run(FORWARD);
+}
+void Stop()
+{
+  Serial.println("Stop");
+  motor1.run(RELEASE);
+  motor2.run(RELEASE);
+  motor3.run(RELEASE);
+  motor4.run(RELEASE);
+}
