@@ -8,3 +8,6 @@ Motor control Shield (x1)
 12V dc geared motors (x4)
 Li-Po batteries
 Jumper Wires
+
+
+For transmitter circuit refer to releases
