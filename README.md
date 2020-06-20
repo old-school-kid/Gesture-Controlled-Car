@@ -1,5 +1,5 @@
 # Gesture-Controlled-Car
-Wireless DIY Arduino based Gesture Controlled Car
+Wireless Arduino based Gesture Controlled Car
 Components Required:
 Arduino board (x2)
 MPU-6050 (x1)
